@@ -105,6 +105,3 @@ See `env.yml` for pinned versions:
 ## 🎯 Project Timeline
 
 Estimated setup time: 1 hour
-
----
-*Generated for fingerprint recognition research*
