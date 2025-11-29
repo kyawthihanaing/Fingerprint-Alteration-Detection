@@ -1,0 +1,34 @@
+STREAM A Evaluation Metrics
+==================================================
+
+Overall Accuracy: 0.9195
+Macro Precision: 0.7880
+Macro Recall: 0.8187
+Macro Specificity: 0.8187
+Macro F1-Score: 0.8022
+ROC-AUC: 0.9443
+PR-AUC (Average Precision): 0.9926
+
+Threshold Calibration:
+  Threshold: 0.775
+  Selection: Optimized on validation set to maximize macro-F1,
+             then frozen and applied to test set (no test leakage).
+
+Per-Difficulty Accuracy (Robustness Analysis):
+--------------------------------------------------
+Difficulty             Accuracy    Samples
+--------------------------------------------------
+Altered-Easy             0.8685       2684
+Altered-Hard             0.9954       2174
+Altered-Medium           0.9894       2557
+Real                     0.6900        900
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.61      0.69      0.65       900
+           1       0.96      0.95      0.95      7415
+
+    accuracy                           0.92      8315
+   macro avg       0.79      0.82      0.80      8315
+weighted avg       0.92      0.92      0.92      8315

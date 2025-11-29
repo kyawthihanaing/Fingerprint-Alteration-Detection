@@ -1,0 +1,49 @@
+# Model files (large binary files)
+*.joblib
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+Include/
+Lib/
+Scripts/
+share/
+pyvenv.cfg
+env.yml
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Data files (if you don't want to include raw data)
+# data/
+
+# Reports (generated files)
+# reports/
+
+# Features (generated files)
+features/
