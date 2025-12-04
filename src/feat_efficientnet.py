@@ -29,8 +29,8 @@ def build_extractor():
     )
     base.trainable = False  # Freeze all weights
     
-    # Global average pooling to get fixed-size features
-    x = layers.GlobalAveragePooling2D()(base.output)  # 1280-D
+    # Global max pooling to get fixed-size features (changed from average for anomaly detection)
+    x = layers.GlobalMaxPooling2D()(base.output)  # 1280-D
     
     model = Model(base.input, x, name="EfficientNetB0_Extractor")
     return model

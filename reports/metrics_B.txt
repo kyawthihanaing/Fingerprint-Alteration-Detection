@@ -1,29 +1,16 @@
 STREAM B Evaluation Metrics
-==================================================
 
-Overall Accuracy: 0.6936
-Macro Precision: 0.5645
-Macro Recall: 0.6466
-Macro Specificity: 0.6466
-Macro F1-Score: 0.5487
-ROC-AUC: 0.6968
-PR-AUC (Average Precision): 0.9397
-
-Per-Difficulty Accuracy (Robustness Analysis):
---------------------------------------------------
-Difficulty             Accuracy    Samples
---------------------------------------------------
-Altered-Easy             0.6162       2684
-Altered-Hard             0.8096       2174
-Altered-Medium           0.7137       2557
-Real                     0.5867        900
+Overall Accuracy: 0.8939
+Macro Recall: 0.5696
+Macro F1-Score: 0.5920
+ROC-AUC: 0.8471
 
 Classification Report:
               precision    recall  f1-score   support
 
-           0       0.20      0.59      0.29       900
-           1       0.93      0.71      0.80      7415
+           0       0.53      0.16      0.24       900
+           1       0.91      0.98      0.94      7415
 
-    accuracy                           0.69      8315
-   macro avg       0.56      0.65      0.55      8315
-weighted avg       0.85      0.69      0.75      8315
+    accuracy                           0.89      8315
+   macro avg       0.72      0.57      0.59      8315
+weighted avg       0.87      0.89      0.87      8315

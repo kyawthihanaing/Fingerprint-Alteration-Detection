@@ -5,7 +5,7 @@
 **Date:** November 2025  
 **Dataset:** SOCOFing (Sokoto Coventry Fingerprint Dataset)  
 **Task:** Binary Classification (Real vs Altered Fingerprints)  
-**Best Performance:** 92.47% accuracy with 95% CI [91.88%, 93.01%]
+**Best Performance:** 93.28% accuracy (Stream TRIPLE_FUSION: EfficientNet + Gabor + Forensic features into XGBoost) with subject-level validation. The previously reported Stream FUSION confidence interval of 95% CI [91.88%, 93.01%] is retained for reference.
 
 ---
 
@@ -14,6 +14,11 @@
 This project implements a state-of-the-art fingerprint alteration detection system using multi-stream feature fusion. The system combines deep learning (EfficientNet-B0) with traditional texture analysis (Gabor filters) to achieve superior performance in distinguishing between genuine and altered fingerprints. The approach addresses critical gaps in forensic biometrics and cybersecurity applications.
 
 ### Key Achievements:
+- **Delivered four production-ready XGBoost streams:**
+    - **Stream A:** EfficientNet deep embeddings → PCA/LDA → XGBoost
+    - **Stream B:** Enhanced Gabor texture descriptors → PCA/LDA → XGBoost
+    - **Stream FUSION:** Deep + texture concatenation → PCA/LDA → XGBoost
+    - **Stream TRIPLE_FUSION:** Deep + texture + forensic biomarkers → PCA/LDA → XGBoost
 - **92.47% accuracy** on altered fingerprint detection (FUSION stream)
 - **99.68% accuracy** on hard alterations (most challenging case)
 - **ROC-AUC: 0.9465** and **PR-AUC: 0.9929** indicating excellent discriminative capability
@@ -41,21 +46,27 @@ The system follows a **multi-stream architecture** that leverages complementary 
                     └─────────┬───────┘
                               │
                ┌──────────────┼──────────────┐
-               │              │              │
-         ┌─────▼─────┐  ┌─────▼─────┐  ┌─────▼─────┐
-         │ Stream A  │  │ Stream B  │  │ Stream    │
-         │EfficientNet│  │  Gabor    │  │ FUSION    │
-         │Deep Learn │  │ Texture   │  │  A + B    │
-         └─────┬─────┘  └─────┬─────┘  └─────┬─────┘
-               │              │              │
-         ┌─────▼─────┐  ┌─────▼─────┐  ┌─────▼─────┐
-         │PCA(384)+RF│  │ Naive     │  │PCA(384)+RF│
-         │92.27% ACC │  │Bayes      │  │92.47% ACC │
-         └───────────┘  │69.36% ACC │  └───────────┘
-                        └───────────┘
+               │              │              │              │
+           ┌─────▼─────┐  ┌─────▼─────┐  ┌─────▼─────┐  ┌─────▼─────────┐
+           │ Stream A  │  │ Stream B  │  │ Stream    │  │ Stream        │
+           │EfficientNet│  │  Gabor    │  │ FUSION    │  │TRIPLE_FUSION  │
+           │Deep Embed │  │ Texture   │  │  A + B    │  │A + B + Foren. │
+           └─────┬─────┘  └─────┬─────┘  └─────┬─────┘  └─────┬─────────┘
+               │              │              │              │
+           ┌─────▼─────┐  ┌─────▼─────┐  ┌─────▼─────┐  ┌─────▼─────────┐
+           │PCA/LDA    │  │PCA/LDA    │  │PCA/LDA    │  │PCA/LDA        │
+           │+XGBoost   │  │+XGBoost   │  │+XGBoost   │  │+XGBoost       │
+           │93.25% ACC │  │89.39% ACC │  │93.17% ACC │  │**93.28% ACC**│
+           └───────────┘  └───────────┘  └───────────┘  └──────────────┘
 ```
 
-### 2.2 Directory Structure
+### 2.2 Stream Deliverables
+- **Stream A (EfficientNet + Forensics)**: Deep EfficientNet-B0 embeddings fused with forensic ridge metrics, reduced via PCA/LDA to 384 dims, then trained with XGBoost (best single-stream ACC 93.25%).
+- **Stream B (Gabor Textures)**: Classic Gabor-enhanced fingerprints distilled through PCA/LDA and modeled with XGBoost (ACC 89.39%) for a physics-informed baseline.
+- **Stream FUSION (A + B)**: Early concatenation of Stream A and Stream B embeddings before dimensionality reduction and XGBoost classification (ACC 93.17%).
+- **Stream TRIPLE_FUSION (A + B + Forensic Scalars)**: Adds hand-crafted forensic statistics as a third branch prior to PCA/LDA + XGBoost, delivering the top-line assignment result with 93.28% accuracy.
+
+### 2.3 Directory Structure
 
 ```
 socofing-pr-py311/

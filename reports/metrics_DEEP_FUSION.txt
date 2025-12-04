@@ -1,0 +1,15 @@
+STREAM DEEP_FUSION Evaluation Metrics
+
+Overall Accuracy: 0.9823
+Macro F1-Score: 0.9564
+ROC-AUC: 0.9974
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        Real       0.88      0.98      0.92       900
+     Altered       1.00      0.98      0.99      7415
+
+    accuracy                           0.98      8315
+   macro avg       0.94      0.98      0.96      8315
+weighted avg       0.98      0.98      0.98      8315

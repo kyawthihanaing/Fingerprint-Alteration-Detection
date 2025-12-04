@@ -1,0 +1,16 @@
+STREAM TRIPLE_FUSION Evaluation Metrics
+
+Overall Accuracy: 0.9328
+Macro Recall: 0.8403
+Macro F1-Score: 0.8307
+ROC-AUC: 0.9544
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.68      0.72      0.70       900
+           1       0.97      0.96      0.96      7415
+
+    accuracy                           0.93      8315
+   macro avg       0.82      0.84      0.83      8315
+weighted avg       0.93      0.93      0.93      8315

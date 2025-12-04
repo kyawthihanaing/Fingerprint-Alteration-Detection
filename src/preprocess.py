@@ -50,41 +50,20 @@ def preprocess_for_effnet(gray_image):
 
 def preprocess_for_texture(gray_image):
     """
-    Preprocess image for texture feature extraction (Gabor filters).
-    Applies CLAHE, adaptive thresholding, morphological operations.
-    
-    Args:
-        gray_image: Grayscale image (or BGR, will be converted)
-        
-    Returns:
-        Grayscale uint8 image, shape (128, 128)
+    Research-Aligned Preprocessing: Raw CLAHE (No Binarization).
+    Preserves micro-texture for Gabor filters.
     """
-    # Convert to grayscale if needed
     if gray_image.ndim == 3:
         gray_image = cv2.cvtColor(gray_image, cv2.COLOR_BGR2GRAY)
     
-    # Enhance contrast
-    enhanced = _clahe(gray_image)
+    # 1. CLAHE (Contrast Enhancement) - ClipLimit=2.0
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    enhanced = clahe.apply(gray_image)
     
-    # Fix border artifacts (common in fingerprint scans)
-    enhanced[:2, :] = np.maximum(enhanced[:2, :], 200)
-    enhanced[:, :2] = np.maximum(enhanced[:, :2], 200)
+    # 2. NO Thresholding/Morphology (Removed to save micro-texture)
     
-    # Adaptive thresholding for ridge extraction
-    threshold = 255 - cv2.adaptiveThreshold(
-        enhanced, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-        cv2.THRESH_BINARY, 35, 2
-    )
-    
-    # Morphological opening to remove noise
-    kernel = np.ones((3, 3), np.uint8)
-    cleaned = cv2.morphologyEx(threshold, cv2.MORPH_OPEN, kernel, iterations=1)
-    
-    # Apply mask
-    masked = cv2.bitwise_and(enhanced, enhanced, mask=cleaned)
-    
-    # Resize for Gabor processing
-    resized = cv2.resize(masked, (config.HOG_SIZE, config.HOG_SIZE), interpolation=cv2.INTER_AREA)
+    # 3. Resize directly
+    resized = cv2.resize(enhanced, (config.HOG_SIZE, config.HOG_SIZE), interpolation=cv2.INTER_AREA)
     
     return resized
 

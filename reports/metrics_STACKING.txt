@@ -1,0 +1,15 @@
+STREAM STACKING Evaluation Metrics
+
+Overall Accuracy: 0.9347
+Macro F1-Score: 0.8314
+ROC-AUC: 0.9568
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.70      0.70      0.70       900
+           1       0.96      0.96      0.96      7415
+
+    accuracy                           0.93      8315
+   macro avg       0.83      0.83      0.83      8315
+weighted avg       0.93      0.93      0.93      8315
