@@ -1,0 +1,12 @@
+Pillow
+numpy
+joblib
+opencv-python
+matplotlib
+scikit-learn
+pandas
+xgboost
+imbalanced-learn
+tensorflow
+seaborn
+scikit-image
